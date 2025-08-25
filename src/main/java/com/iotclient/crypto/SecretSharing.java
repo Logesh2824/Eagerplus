@@ -43,13 +43,7 @@ public class SecretSharing {
         return coefficients;
     }
 
-    /**
-     * Evaluates the polynomial at x in the finite field.
-     *
-     * @param coefficients Polynomial coefficients
-     * @param x            Point to evaluate at
-     * @return Polynomial value at x modulo prime
-     */
+
     public BigInteger evaluatePolynomial(BigInteger[] coefficients, BigInteger x) {
         BigInteger result = BigInteger.ZERO;
         BigInteger powerOfX = BigInteger.ONE;  // x^0 initially
@@ -61,13 +55,6 @@ public class SecretSharing {
         return result;
     }
 
-    /**
-     * Generates N shares for the secret using the polynomial.
-     *
-     * @param coefficients Polynomial coefficients
-     * @param shareCount   Number of shares to generate (n)
-     * @return Map of shareIndex (x) to shareValue (y)
-     */
     public Map<BigInteger, BigInteger> generateShares(BigInteger[] coefficients, int shareCount) {
         Map<BigInteger, BigInteger> shares = new HashMap<>();
         for (int i = 1; i <= shareCount; i++) {
@@ -78,12 +65,6 @@ public class SecretSharing {
         return shares;
     }
 
-    /**
-     * Recovers the secret from at least threshold shares using Lagrange interpolation.
-     *
-     * @param shares Map of shareIndex to shareValue (at least threshold number of shares)
-     * @return The recovered secret
-     */
     public BigInteger recoverSecret(Map<BigInteger, BigInteger> shares) {
         BigInteger secret = BigInteger.ZERO;
 

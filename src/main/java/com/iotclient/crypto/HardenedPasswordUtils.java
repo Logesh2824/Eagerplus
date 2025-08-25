@@ -6,18 +6,10 @@ import java.security.NoSuchAlgorithmException;
 
 import org.bouncycastle.math.ec.ECPoint;
 
-/**
- * Utility class for generating the hardened password
- * by hashing the signature point concatenated with the original password.
- */
+
 public class HardenedPasswordUtils {
 
-    /**
-     * Generate hardened password from the signature point and password string.
-     * @param signaturePoint The unblinded signature EC point
-     * @param password The original password string
-     * @return hardened password bytes (SHA-256 digest)
-     */
+
     public static byte[] generateHardenedPassword(ECPoint signaturePoint, String password) {
         try {
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");

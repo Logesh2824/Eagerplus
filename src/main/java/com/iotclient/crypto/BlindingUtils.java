@@ -10,10 +10,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.security.Security;
 
-/**
- * Utility class to blind and unblind elliptic curve points.
- * Uses Bouncy Castle for ECC point operations.
- */
+
 public class BlindingUtils {
 
     public final ECParameterSpec ecSpec;
@@ -30,12 +27,7 @@ public class BlindingUtils {
         this.random = new SecureRandom();
     }
 
-    /**
-     * Blind an ECPoint by multiplying with a random scalar.
-     *
-     * @param point The original point (e.g., password hashed to curve)
-     * @return A BlindedPoint object containing blinded point and the blinding factor.
-     */
+
     public BlindedPoint blind(ECPoint point) {
         BigInteger blindingFactor = randomScalar();
         ECPoint blindedPoint = point.multiply(blindingFactor).normalize();
@@ -43,22 +35,14 @@ public class BlindingUtils {
         return new BlindedPoint(blindedPoint, blindingFactor);
     }
 
-    /**
-     * Unblind an ECPoint by multiplying with the modular inverse of the blinding factor.
-     *
-     * @param blindedPoint The blinded curve point (e.g., signature on blinded point)
-     * @param blindingFactor The blinding scalar originally used to blind the point
-     * @return The unblinded ECPoint (e.g., signature on original point)
-     */
+
     public ECPoint unblind(ECPoint blindedPoint, BigInteger blindingFactor) {
         BigInteger order = ecSpec.getN();
         BigInteger inv = blindingFactor.modInverse(order);
         return blindedPoint.multiply(inv).normalize();
     }
 
-    /**
-     * Generate a secure random scalar within [1, n-1].
-     */
+
     private BigInteger randomScalar() {
         BigInteger n = ecSpec.getN();
         BigInteger k;
@@ -68,9 +52,7 @@ public class BlindingUtils {
         return k;
     }
 
-    /**
-     * Helper class to hold blinded point and factor.
-     */
+
     public static class BlindedPoint {
         private final ECPoint point;
         private final BigInteger blindingFactor;

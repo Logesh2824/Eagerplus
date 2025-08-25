@@ -64,6 +64,7 @@ public class PasswordToBlindingFlow {
 
 // Debug print shares
             for (Map.Entry<BigInteger, BigInteger> entry : shares.entrySet()) {
+
                 System.out.printf("Share %s: %s%n", entry.getKey(), entry.getValue());
             }
 
